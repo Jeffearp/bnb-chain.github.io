@@ -7,14 +7,11 @@ of token recovery.
 
 Be noted:
 
-* Token recovery dApp will only be available post fusion (the Beacon Chain has been shutdown).
 * Only [the crosschain bound/mirrored assets](../users/assets.md) can be recovered.
 
 URL:
 
-- **Testnet**: [https://testnet-bnb-beacon-chain-token-recovery.bnbchain.org/en](https://testnet-bnb-beacon-chain-token-recovery.bnbchain.org/en)
-
-- **Mainnet**: To be updated.
+- **Mainnet**: [https://www.bnbchain.org/en/token-recovery](https://www.bnbchain.org/en/token-recovery)
 
 ## Steps
 
@@ -27,7 +24,8 @@ When opening the token recovery dApp, you will be prompted to connect to your wa
 ![](../../assets/bcfusion/token-recovery-2.png){:style="width:800px"}
 
 [BNB Chain Wallet](https://chromewebstore.google.com/detail/bnb-chain-wallet/fhbohimaelbohpjbbldcngcnapndodjp)
-and [Trust Wallet](https://trustwallet.com/) will be supported (Trust wallet support will come soon).
+and [Trust Wallet Extension](https://trustwallet.com/) are supported. For Trust users, you can refer to 
+[this](https://trustwallet.com/blog/trust-wallet-to-deprecate-bnb-beacon-chain-bep2-bep8-support) for more information.
 
 ### Step 2: Select the BEP2/BEP8 assets to be recovered.
 
@@ -52,6 +50,8 @@ Be noted:
 
 * The account will be used in the later steps for sending a transaction to BSC. So it should have some BNB on BSC for
   the gas fee.
+
+* If this BSC address has already been used as the receiver for a token recovery from a BC address, and it is used again for the recovery of the same token from a different BC address, the unlock time will be recalculated, starting from the most recent recovery and extending 7 days forward.
 
 ### Step 4: Confirm the receiver address and signing.
 
@@ -88,4 +88,5 @@ After the transaction is sent, the token recovery dApp will populate a window to
 the token recovery request is sent successfully.
 
 Finally, you need to wait for 7 days for the BEP2/BEP8 assets to be recovered on BSC and received in your wallet.
+
 

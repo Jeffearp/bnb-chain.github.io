@@ -27,25 +27,58 @@ Running an archive node will take a high cost as it includes all the block and s
 
 ### Run with an Erigon client
 
-[Erigon](https://github.com/node-real/bsc-erigon) has supported BSC mainnet. You can also refer to [Free public BNB Smart Chain Archive Snapshot](https://github.com/allada/bsc-archive-snapshot) for the guide to run a BSC archive node with an Erigon client. The owner has switched to using an Erigon client for a BSC archive node recently. You can download the archive snapshot which is a tarball from aws s3. The s3 path is "s3://public-blockchain-snapshots/bsc/erigon-latest.tar.zstd". This path is public, but is configured as requester-pays. Also this means you'll need an AWS account in order to download it.
+[Erigon](https://github.com/node-real/bsc-erigon) now supports the BSC mainnet. The latest version allows you to sync an archive node from scratch in just 3 days, using 4.3 TB of disk space. You can use Erigon to operate an archive node as shown below.
 
-* Command to download to local dir:
+---
+title: BSC Erigon Node Deployment Guide
+---
 
+### BSC Erigon Node Deployment
+
+BSC Erigon, maintained by the Node Real team, is a fork of Erigon aimed at becoming the premier archive node implementation for the BSC network.
+
+## Hardware Requirements
+
+To ensure optimal performance of your BSC Erigon node, we recommend the following hardware specifications:
+
+* RAM: 64GB or more (higher RAM correlates with better performance)
+* Storage: SSD or NVMe
+    - Archive Node: Minimum 5TB
+    - Fast Node: Minimum 700GB
+
+## BSC Erigon Node Deployment Steps
+
+### 1. Obtain the Erigon Binary
+
+Option 1: Build from source
+```shell
+git clone https://github.com/node-real/bsc-erigon.git
+cd bsc-erigon
+make erigon
 ```
-aws s3 cp --request-payer=requester  "s3://public-blockchain-snapshots/bsc/erigon-latest.tar.zstd"   local_data_dir
-
-tar --use-compress-program=unzstd -xvf erigon-latest.tar.zstd
+Option 2: Use Docker image
+```shell
+docker pull ghcr.io/node-real/bsc-erigon:${latest_version}
 ```
-
-* Command to run:
-
+### 2. Launch the Erigon Node
+By default, the node will run in archive mode. Syncing from scratch typically takes about 3 days.
+```shell
+./build/bin/erigon \
+--datadir="<your_data_directory_path>" \
+--chain=bsc \
+--port=30303 \
+--http.port=8545 \
+--authrpc.port=8551 \
+--torrent.port=42069 \
+--private.api.addr=127.0.0.1:9090 \
+--http --ws \
+--http.api=eth,debug,net,trace,web3,erigon,bsc
 ```
-./erigon --chain=bsc --datadir  local_data_dir
-```
+**Note**: To avoid port conflicts, specify different ports for each chain if running multiple instances.
 
-The known Issue with an Erigon client is that it does not really keep up with the latest blocks as mentioned in the Github. If you want to keep up with the latest blocks it is suggested to run a BSC archive node with high performance disk such as NVME, or run a BSC full node with a Geth client at the same time which  means you need one proxy that will ask Erigon if it has the block height and if not forward it to the Geth client.
+### 3. Running a Fast Node (Non-Archive Mode)
+   Add the --prune.mode=minimal flag to start a fast node. This mode retains only the last 3 days of state and block data, supporting debug_trace* operations for the past 3 days.
 
-### Run with a Reth client
+If you prefer not to spend days syncing, you can obtain fast node snapshots from [community-maintained repositories](https://github.com/48Club/bsc-snapshots).
 
-[Reth](https://github.com/bnb-chain/reth) now supports the BSC network and demonstrates superior performance compared to Geth and Erigon in recent benchmark tests. You can utilize reth to operate an archive node; for more information, refer to [Reth Node](./reth_node.md).
-
+By following these steps, you can flexibly deploy either a full BSC Erigon node or a fast node based on your requirements. Whichever option you choose, BSC Erigon will provide you with an efficient and reliable node service.

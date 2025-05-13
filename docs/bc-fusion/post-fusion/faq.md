@@ -44,8 +44,7 @@ are the owner of the assets. Please take care of your key/mnemonic.
     - Mainnet API Endpoint: https://dex.bnbchain.org/api/v1/account/{bnb_address}
 * The snapshot file can be downloaded from Greenfield, R2, and so on. The users can download the snapshot file and set up
   a local BC node for retrieving any data on the blockchain.
-    - Testnet snpashot file: https://github.com/bnb-chain/node-dump/blob/master/Readme.md    
-    - Mainnet snpashot file: To be updated.
+    - Testnet/Mainnet snpashot file: https://github.com/bnb-chain/node-dump/blob/master/Readme.md
 
 ## 4. Can I still acccess the BC releated services or products after the fusion?
 
@@ -66,3 +65,9 @@ the explorer for BC testnet will be shut down if there is no query traffic for a
 * Explorer service (including UI)
     - Testnet explorer service: https://testnet-explorer.bnbchain.org/
     - Mainnet explorer service: https://explorer.bnbchain.org/
+
+# Other Commonly Asked Questions
+
+- [Recovering EOS Tokens from SafePal Wallet After BEP2 Shutdown](../faq/recovering-eos-token-from-safepal.md)
+
+If your issue is not listed here, please explore our other documentation or open an issue.
